@@ -3,224 +3,578 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sam's Portfolio</title>
+    <title>Sam — Web Developer & Digital Designer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #0a0e27;
-            color: #e0e0e0;
-            line-height: 1.6;
+
+        :root {
+            --primary: #0f172a;
+            --secondary: #1e293b;
+            --accent: #3b82f6;
+            --accent-light: #60a5fa;
+            --text: #f1f5f9;
+            --text-muted: #cbd5e1;
+            --border: rgba(148, 163, 184, 0.1);
+            --transition: cubic-bezier(0.4, 0, 0.2, 1);
         }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, var(--primary) 0%, #1a1f3a 100%);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(10, 14, 39, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 1rem 2rem;
-            z-index: 100;
-        }
-        nav ul {
-            max-width: 1200px;
-            margin: 0 auto;
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 1.5rem 2rem;
+            z-index: 1000;
             display: flex;
-            justify-content: flex-end;
-            gap: 2rem;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: 'Sora', sans-serif;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 3rem;
             list-style: none;
         }
+
         nav a {
-            color: #e0e0e0;
+            color: var(--text-muted);
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s;
+            font-size: 0.95rem;
+            transition: color 0.3s var(--transition);
+            position: relative;
         }
+
         nav a:hover {
-            color: #00bfff;
+            color: var(--accent);
         }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s var(--transition);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
         .hero {
             margin-top: 80px;
-            min-height: 90vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            background: linear-gradient(135deg, #0a0e27 0%, #16213e 100%);
+            padding: 2rem;
             position: relative;
             overflow: hidden;
         }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.15), transparent);
+            border-radius: 50%;
+            top: -200px;
+            right: -200px;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.1), transparent);
+            border-radius: 50%;
+            bottom: -150px;
+            left: -150px;
+            animation: float 10s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(30px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            text-align: center;
+            animation: slideUp 1s ease-out 0.2s backwards;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .hero h1 {
-            font-size: 3.5rem;
-            background: linear-gradient(135deg, #00bfff, #0080ff);
+            font-family: 'Sora', sans-serif;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--text) 0%, var(--accent-light) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 1rem;
         }
+
         .hero p {
-            font-size: 1.2rem;
-            color: #b0b0b0;
-            margin-bottom: 2rem;
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            font-weight: 400;
         }
-        .cta-btn {
-            padding: 12px 30px;
-            background: linear-gradient(135deg, #00bfff, #0080ff);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 1rem;
+
+        .hero .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border-radius: 12px;
             font-weight: 600;
-            transition: transform 0.3s;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            transition: all 0.3s var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
-        .cta-btn:hover {
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            color: white;
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+        }
+
+        .btn-primary:hover {
             transform: translateY(-3px);
+            box-shadow: 0 30px 60px rgba(59, 130, 246, 0.3);
         }
-        #projects {
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(59, 130, 246, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* About Section */
+        .about {
             max-width: 1200px;
-            margin: 100px auto;
+            margin: 150px auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-content h2 {
+            font-family: 'Sora', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .about-content p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .skill-tag {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--accent-light);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        /* Projects Section */
+        .projects-section {
+            max-width: 1200px;
+            margin: 150px auto;
             padding: 0 2rem;
         }
-        #projects h2 {
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
+
+        .section-title {
+            font-family: 'Sora', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 4rem;
             text-align: center;
-            background: linear-gradient(135deg, #00bfff, #0080ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--text);
         }
-        .project-cards {
+
+        .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
         }
+
         .project-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
-            border: 1px solid rgba(0, 191, 255, 0.2);
-            border-radius: 15px;
-            padding: 2rem;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-            cursor: pointer;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9));
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.4s var(--transition);
+            position: relative;
         }
+
         .project-card:hover {
-            border-color: rgba(0, 191, 255, 0.5);
-            box-shadow: 0 20px 50px rgba(0, 191, 255, 0.1);
-            transform: translateY(-10px);
+            border-color: rgba(59, 130, 246, 0.5);
+            box-shadow: 0 30px 60px rgba(59, 130, 246, 0.15);
+            transform: translateY(-8px);
         }
-        .project-card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 0.5rem;
-            color: #ffffff;
+
+        .project-header {
+            height: 200px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(96, 165, 250, 0.05));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            border-bottom: 1px solid var(--border);
         }
+
+        .project-content {
+            padding: 2rem;
+        }
+
         .project-category {
             display: inline-block;
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--accent-light);
             padding: 6px 12px;
-            background: rgba(0, 191, 255, 0.2);
-            color: #00bfff;
-            border-radius: 20px;
-            font-size: 0.75rem;
+            border-radius: 16px;
+            font-size: 0.8rem;
             font-weight: 600;
-            margin-bottom: 1rem;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
         }
+
+        .project-card h3 {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
         .project-card p {
-            color: #b0b0b0;
+            color: var(--text-muted);
             margin-bottom: 1.5rem;
+            line-height: 1.6;
+            font-size: 0.95rem;
         }
+
         .project-link {
-            display: inline-block;
-            color: #00bfff;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent);
             text-decoration: none;
             font-weight: 600;
-            padding: 10px 20px;
-            border: 2px solid #00bfff;
-            border-radius: 8px;
-            transition: all 0.3s ease;
+            transition: all 0.3s var(--transition);
         }
+
         .project-link:hover {
-            background: #00bfff;
-            color: #0a0e27;
+            gap: 1rem;
+            color: var(--accent-light);
         }
-        footer {
-            background: rgba(10, 14, 39, 0.95);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 3rem 2rem;
+
+        /* Contact Section */
+        .contact {
+            max-width: 800px;
+            margin: 150px auto;
+            padding: 0 2rem;
             text-align: center;
-            color: #808080;
-            margin-top: 100px;
         }
+
+        .contact h2 {
+            font-family: 'Sora', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .contact p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            line-height: 1.8;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            border-top: 1px solid var(--border);
+            padding: 4rem 2rem;
+            margin-top: 150px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-col h4 {
+            color: var(--text);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .footer-col p, .footer-col a {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            text-decoration: none;
+            transition: color 0.3s var(--transition);
+        }
+
+        .footer-col a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2rem; }
-            nav ul { gap: 1rem; font-size: 0.9rem; }
+            nav ul { gap: 1.5rem; }
+            .hero h1 { font-size: 2.5rem; }
+            .about { grid-template-columns: 1fr; }
+            .about-content h2 { font-size: 2rem; }
+            .section-title { font-size: 2rem; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .footer-content { grid-template-columns: 1fr; }
+            .cta-buttons { flex-direction: column; }
         }
     </style>
 </head>
 <body>
+    <!-- Navigation -->
     <nav>
+        <div class="logo">S</div>
         <ul>
-            <li><a href="#projects">Projects</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Work</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
 
-    <header class="hero">
-        <div>
-            <h1>Hi, I'm Sam 👋</h1>
-            <p>Web Developer & Digital Solutions Creator</p>
-            <p style="color: #909090; font-size: 0.95rem;">Building modern websites for businesses across Nigeria</p>
-            <a href="#projects" class="cta-btn">View My Work</a>
-        </div>
-    </header>
-
-    <section id="projects">
-        <h2>My Projects</h2>
-        <div class="project-cards">
-            <div class="project-card">
-                <span class="project-category">Manufacturing</span>
-                <h3>PrimeTex Nigeria</h3>
-                <p>Quality fabrics supplied across Nigeria. Premium textile solutions platform.</p>
-                <a href="https://v0-primetexnigeria.vercel.app/" target="_blank" class="project-link">View →</a>
-            </div>
-
-            <div class="project-card">
-                <span class="project-category">Hospitality</span>
-                <h3>Maison Élégance</h3>
-                <p>Luxury hospitality experiences. Premium travel and accommodation solutions.</p>
-                <a href="https://v0-sam-s-project-sites.vercel.app/" target="_blank" class="project-link">View →</a>
-            </div>
-
-            <div class="project-card">
-                <span class="project-category">Agriculture</span>
-                <h3>FreshRoute Nigeria</h3>
-                <p>From source to shelf. Connecting farmers to markets efficiently.</p>
-                <a href="https://v0-sam-codes.vercel.app/" target="_blank" class="project-link">View →</a>
-            </div>
-
-            <div class="project-card">
-                <span class="project-category">Agriculture</span>
-                <h3>FreshRoute - Farm Produce</h3>
-                <p>Fresh farm produce delivered. Direct farm-to-table platform.</p>
-                <a href="https://v0-farm-produce-website-self.vercel.app/" target="_blank" class="project-link">View →</a>
-            </div>
-
-            <div class="project-card">
-                <span class="project-category">Food & Retail</span>
-                <h3>Mama Nkechi's Kitchen</h3>
-                <p>Homemade Nigerian food. Authentic flavors, quality ingredients.</p>
-                <a href="https://v0-mama-nkechis-kitchen.vercel.app/" target="_blank" class="project-link">View →</a>
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <p>Welcome to my portfolio</p>
+            <h1>I'm Sam, a Web Developer & Digital Solutions Architect</h1>
+            <p class="subtitle">I craft beautiful, high-performance websites for businesses across Nigeria. From luxury hospitality to agriculture logistics, I turn visions into reality.</p>
+            <div class="cta-buttons">
+                <a href="#projects" class="btn btn-primary">View My Work</a>
+                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
             </div>
         </div>
     </section>
 
-    <footer id="contact">
-        <p>&copy; 2026 Sam's Portfolio | Built with modern web technologies</p>
+    <!-- About -->
+    <section class="about" id="about">
+        <div>
+            <h2>About Me</h2>
+            <p>With over 2+ years of experience, I specialize in creating responsive, user-centric web applications that drive business growth. My approach combines strategic thinking with cutting-edge design principles.</p>
+            <p>I've worked with diverse industries—from luxury hospitality to agricultural logistics—delivering solutions that not only look stunning but perform exceptionally well.</p>
+        </div>
+        <div>
+            <h3 style="color: var(--text); margin-bottom: 1.5rem;">Skills & Technologies</h3>
+            <div class="skills">
+                <span class="skill-tag">React.js</span>
+                <span class="skill-tag">Next.js</span>
+                <span class="skill-tag">TypeScript</span>
+                <span class="skill-tag">Tailwind CSS</span>
+                <span class="skill-tag">Web Design</span>
+                <span class="skill-tag">UI/UX</span>
+                <span class="skill-tag">JavaScript</span>
+                <span class="skill-tag">HTML/CSS</span>
+                <span class="skill-tag">Figma</span>
+                <span class="skill-tag">Performance</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section class="projects-section" id="projects">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-header">🏭</div>
+                <div class="project-content">
+                    <span class="project-category">Manufacturing</span>
+                    <h3>PrimeTex Nigeria</h3>
+                    <p>A premium textile solutions platform connecting businesses with high-quality fabrics across Nigeria. Built with modern e-commerce features and inventory management.</p>
+                    <a href="https://v0-primetexnigeria.vercel.app/" target="_blank" class="project-link">Visit Project →</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">🏨</div>
+                <div class="project-content">
+                    <span class="project-category">Hospitality</span>
+                    <h3>Maison Élégance</h3>
+                    <p>Luxury hospitality platform showcasing premium travel experiences. Features sophisticated booking systems, gallery showcases, and personalized recommendations.</p>
+                    <a href="https://v0-sam-s-project-sites.vercel.app/" target="_blank" class="project-link">Visit Project →</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">🌾</div>
+                <div class="project-content">
+                    <span class="project-category">Agriculture</span>
+                    <h3>FreshRoute Nigeria</h3>
+                    <p>From farm to shelf logistics platform. Connects farmers with retailers through intelligent supply chain management and real-time tracking.</p>
+                    <a href="https://v0-sam-codes.vercel.app/" target="_blank" class="project-link">Visit Project →</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">🥬</div>
+                <div class="project-content">
+                    <span class="project-category">Agriculture</span>
+                    <h3>FreshRoute - Farm Produce</h3>
+                    <p>Direct farm-to-consumer platform for fresh produce delivery. Emphasizes quality, freshness tracking, and sustainable farming practices.</p>
+                    <a href="https://v0-farm-produce-website-self.vercel.app/" target="_blank" class="project-link">Visit Project →</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">🍽️</div>
+                <div class="project-content">
+                    <span class="project-category">Food & Retail</span>
+                    <h3>Mama Nkechi's Kitchen</h3>
+                    <p>Authentic Nigerian food delivery platform in Ibadan. Features homemade recipes, real-time order tracking, and community-driven reviews.</p>
+                    <a href="https://v0-mama-nkechis-kitchen.vercel.app/" target="_blank" class="project-link">Visit Project →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contact">
+        <h2>Let's Work Together</h2>
+        <p>Have a project in mind? Whether you need a website redesign, a new web application, or digital solutions for your business, I'd love to hear from you.</p>
+        <a href="mailto:ajewolesam42@gmail.com" class="btn btn-primary">Send Me an Email</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4>Sam's Portfolio</h4>
+                <p>Web Developer & Digital Solutions Architect based in Nigeria. Crafting beautiful digital experiences.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <a href="#about">About</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="footer-col">
+                <h4>Connect</h4>
+                <a href="https://github.com/sam-does-code" target="_blank">GitHub</a>
+                <a href="mailto:ajewolesam42@gmail.com">Email</a>
+                <a href="#contact">Hire Me</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Sam. All rights reserved. Crafted with attention to detail and cutting-edge web technologies.</p>
+        </div>
     </footer>
 </body>
 </html>
